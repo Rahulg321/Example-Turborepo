@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 
+const wsUrl = process.env.NEXT_PUBLIC_WEBSOCKET_URL;
+
 const HomePage = () => {
   const [socket, setSocket] = useState<WebSocket | null>(null);
   const [message, setMessage] = useState<string>("");
@@ -9,7 +11,6 @@ const HomePage = () => {
 
   useEffect(() => {
     // Get WebSocket URL from environment variable
-    const wsUrl = process.env.NEXT_PUBLIC_WEBSOCKET_URL;
 
     if (!wsUrl) {
       console.error("WebSocket URL not found in environment variables");
@@ -69,6 +70,11 @@ const HomePage = () => {
       ) : (
         <h2>Connection Not Established</h2>
       )}
+
+      <div>
+        <p>WebSocket URL:</p>
+        <p>{wsUrl}</p>
+      </div>
     </div>
   );
 };
