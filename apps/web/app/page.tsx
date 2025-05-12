@@ -8,7 +8,15 @@ const HomePage = () => {
   const [isConnected, setIsConnected] = useState<boolean>(false);
 
   useEffect(() => {
-    const newSocket = new WebSocket("ws://localhost:8080");
+    // Get WebSocket URL from environment variable
+    const wsUrl = process.env.NEXT_PUBLIC_WEBSOCKET_URL;
+
+    if (!wsUrl) {
+      console.error("WebSocket URL not found in environment variables");
+      return;
+    }
+
+    const newSocket = new WebSocket(wsUrl);
 
     newSocket.onopen = () => {
       console.log("Connection established");
