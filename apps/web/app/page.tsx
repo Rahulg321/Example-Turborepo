@@ -47,17 +47,6 @@ const HomePage = () => {
       newSocket.onclose = (event) => {
         console.log("Connection closed", event.code, event.reason);
         setIsConnected(false);
-
-        // Attempt to reconnect if not closed cleanly
-        if (event.code !== 1000 && retryCount < maxRetries) {
-          console.log(
-            `Attempting to reconnect (${retryCount + 1}/${maxRetries})...`
-          );
-          setTimeout(() => {
-            setRetryCount((prev) => prev + 1);
-            connectWebSocket();
-          }, 3000); // Wait 3 seconds before retrying
-        }
       };
 
       setSocket(newSocket);
